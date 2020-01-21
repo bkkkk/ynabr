@@ -1,13 +1,13 @@
 Package: ynabr
-Title: What the Package Does (One Line, Title Case)
+Title: Parse Your Financial Data Into YNAB
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Jacob",
+           family = "Blanco",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "jayb88@gmail.com")
+Description: ynabr helps you parse data from various financial institutions or card services
+    so you can easily import it into YNAB.
 License: What license it uses
 Encoding: UTF-8
 LazyData: true
