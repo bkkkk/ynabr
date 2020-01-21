@@ -1,3 +1,7 @@
+format_yen <- function(x) {
+  as.numeric(gsub(",", "", x))
+}
+
 format_date <- function(x) {
   format(x, "%m/%d/%Y")
 }
@@ -5,3 +9,4 @@ format_date <- function(x) {
 get_split_string <- function() {
   "◆ご利用明細内訳（差額分・お振替未済分）"
 }
+

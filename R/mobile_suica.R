@@ -24,9 +24,17 @@ parse_mobile_suica_data <- function(.data, year) {
     ) %>%
     filter(date <= today()) %>%
     transmute(
-      Date = format(date, '%m/%d/%Y'),
+      Date = format_date(date),
       Payee = "",
-      Memo = if_else(in_type == '物販', '物販', as.character(glue::glue('{in_station} --> {out_station}'))),
-      Amount = as.numeric(gsub(",", "", amount))
+      Memo = format_journey_memo(in_type, in_station, out_station),
+      Amount = format_yen(amount)
     )
+}
+
+format_journey_memo <- function(in_type, in_station, out_station) {
+  build_journey <- function(in_station, out_station) {
+    as.character(glue::glue("{in_station} => {out_station}"))
+  }
+  purchase_label <- "物販"
+  if_else(in_type == purchase_label, purchase_label, build_journey(in_station, out_station))
 }
