@@ -13,6 +13,8 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     tidyr,
-    dplyr
+    dplyr,
+    lubridate
 URL: https://github.com/bkkkk/ynabr
 BugReports: https://github.com/bkkkk/ynabr/issues
+RoxygenNote: 7.0.2

@@ -1,6 +1,13 @@
-library(tidyverse)
-library(lubridate)
-
+#' Parse Mobile SUICA data
+#'
+#' @param .data dataframe of data imported from Mobile SUICA
+#' @param year year of data
+#'
+#' @return clean dataframe
+#' @export
+#
+#' @importFrom lubridate today
+#' @importFrom dplyr rename mutate filter transmute
 parse_mobile_suica_data <- function(.data, year) {
   .data %>%
     rename(
@@ -23,5 +30,3 @@ parse_mobile_suica_data <- function(.data, year) {
       Amount = as.numeric(gsub(",", "", amount))
     )
 }
-
-parse_mobile_suica_data(suica_test_data, 2020)

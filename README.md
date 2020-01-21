@@ -1,0 +1,37 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# ynabr
+
+<!-- badges: start -->
+
+[![CircleCI build
+status](https://circleci.com/gh/bkkkk/ynabr.svg?style=svg)](https://circleci.com/gh/bkkkk/ynabr)
+<!-- badges: end -->
+
+Easily parse your financial services data to import it into YNAB and get
+your budget on\!
+
+## Installation
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("bkkkk/ynabr")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+library(ynabr)
+## basic example code
+```
+
+## Code of Conduct
+
+Please note that the ‘ynabr’ project is released with a [Contributor
+Code of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this
+project, you agree to abide by its terms.

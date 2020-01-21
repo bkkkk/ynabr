@@ -1,2 +1,5 @@
 ^ynabr\.Rproj$
 ^\.Rproj\.user$
+^README\.Rmd$
+^\.circleci/config\.yml$
+^\.github$

@@ -1,18 +1,46 @@
+#' Import myJCB CSV data
+#'
+#' @param path path to csv file
+#'
+#' @return dataframe
+#' @export
+create_clean_jcb_data <- function(path, encoding = "cp932") {
+  filename <- basename(path)
+  dirname <- dirname(path)
+
+  read_csv(path,
+           skip = 6,
+           locale = locale(encoding = encoding),
+           col_names = c("id", "date", "payee", "amount", "memo", "idd", "ddd")) %>%
+    parse_jcb_data()
+}
+
+#' Parse myJCB data
+#'
+#' @param .data dataframe with JCB data
+#'
+#' @return clean dataframe
+#' @export
+parse_jcb_data <- function(.data) {
+  .data %>%
+    split_data() %>%
+    clean_up_and_merge()
+}
+
 split_data <- function(.data) {
   .data %>%
-    mutate(divider = if_else(id == "◆ご利用明細内訳（差額分・お振替未済分）", "split", NA_character_)) %>%
+    mutate(divider = if_else(id == get_split_string(), "split", NA_character_)) %>%
     fill(divider, .direction = "down") %>%
     mutate(divider = coalesce(divider, "first")) %>%
     split(.$divider)
 }
 
 clean_up_and_merge <- function(.data) {
-  first <- .data$first %>%
-    select(-divider, -ddd, -idd, -id)
+  first <- remove_extra_columns(.data$first)
 
   second <- .data$split %>%
-    filter(!id %in% c("◆ご利用明細内訳（差額分・お振替未済分）", "ご利用者")) %>%
-    select(-divider, -ddd, -idd, -id)
+    filter(!id %in% c(get_split_string(), "ご利用者")) %>%
+    remove_extra_columns()
 
   bind_rows(first, second) %>%
     mutate(
@@ -20,22 +48,13 @@ clean_up_and_merge <- function(.data) {
       amount = as.numeric(gsub(",", "", amount))
     ) %>%
     transmute(
-      Date = format(date, "%m/%d/%Y"),
+      Date = format_date(date),
       Payee = payee,
       Amount = -amount,
       Memo = memo
     )
 }
 
-create_clean_jcb_data <- function(path) {
-  filename <- basename(path)
-  dirname <- dirname(path)
-
-  read_csv(path,
-           skip = 6,
-           locale = locale(encoding = "cp932"),
-           col_names = c("id", "date", "payee", "amount", "memo", "idd", "ddd")) %>%
-    split_data() %>%
-    clean_up_and_merge() %>%
-    write_csv(file.path(dirname, str_replace(filename, ".csv", "_clean.csv")))
+remove_extra_columns <- function(.data) {
+  select(.data, -divider, -ddd, -idd, -id)
 }
