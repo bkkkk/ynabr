@@ -14,3 +14,5 @@ LazyData: true
 Imports: 
     tidyr,
     dplyr
+URL: https://github.com/bkkkk/ynabr
+BugReports: https://github.com/bkkkk/ynabr/issues
