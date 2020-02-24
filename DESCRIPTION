@@ -14,7 +14,8 @@ LazyData: true
 Imports: 
     tidyr,
     dplyr,
-    lubridate
+    lubridate,
+    glue
 URL: https://github.com/bkkkk/ynabr
 BugReports: https://github.com/bkkkk/ynabr/issues
 RoxygenNote: 7.0.2

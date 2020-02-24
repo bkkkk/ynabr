@@ -4,11 +4,17 @@
 #' @param year year of data
 #'
 #' @return clean dataframe
+#'
 #' @export
-#
-#' @importFrom lubridate today
+#'
+#' @importFrom lubridate today ymd
 #' @importFrom dplyr rename mutate filter transmute
+#' @importFrom lubridate ymd
+#' @importFrom glue glue
 parse_mobile_suica_data <- function(.data, year) {
+  stopifnot(length(.data) == 7)
+  stopifnot(nrow(.data) > 0)
+
   .data %>%
     rename(
       date = `月/日`,
