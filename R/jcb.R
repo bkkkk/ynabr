@@ -5,15 +5,14 @@
 #' @return dataframe
 #' @export
 process_jcb <- function(path, encoding = "cp932") {
-  filename <- basename(path)
-  dirname <- dirname(path)
+  col_names <- c("id", "date", "payee", "amount", "memo", "idd", "ddd")
 
   dir_path <- dirname(path)
 
   read_csv(path,
+           col_names = col_names,
            skip = 6,
-           locale = locale(encoding = encoding),
-           col_names = c("id", "date", "payee", "amount", "memo", "idd", "ddd")) %>%
+           locale = locale(encoding = encoding)) %>%
     parse_jcb_data() %>%
     write_csv(glue("{dir_path}/jcb.csv"))
 }
