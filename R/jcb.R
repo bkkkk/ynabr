@@ -15,7 +15,7 @@ process_jcb <- function(path, encoding = "cp932") {
            locale = locale(encoding = encoding),
            col_names = c("id", "date", "payee", "amount", "memo", "idd", "ddd")) %>%
     parse_jcb_data() %>%
-    write_csv(glue("{dir_path}/{out_file}"))
+    write_csv(glue("{dir_path}/jcb.csv"))
 }
 
 #' Parse myJCB data
