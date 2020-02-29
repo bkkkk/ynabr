@@ -4,15 +4,18 @@
 #'
 #' @return dataframe
 #' @export
-create_clean_jcb_data <- function(path, encoding = "cp932") {
+process_jcb <- function(path, encoding = "cp932") {
   filename <- basename(path)
   dirname <- dirname(path)
+
+  dir_path <- dirname(path)
 
   read_csv(path,
            skip = 6,
            locale = locale(encoding = encoding),
            col_names = c("id", "date", "payee", "amount", "memo", "idd", "ddd")) %>%
-    parse_jcb_data()
+    parse_jcb_data() %>%
+    write_csv(glue("{dir_path}/{out_file}"))
 }
 
 #' Parse myJCB data
